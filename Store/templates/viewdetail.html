@@ -1,0 +1,134 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
+
+
+
+
+
+        <!-- Page Header Start -->
+    <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <h1 class="display-3 mb-3 animated slideInDown">{{ details.name }}</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a class="text-body" href="{% url 'Store:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-body" href="{% url 'Store:products' %}">Products</a></li>
+                    <li class="breadcrumb-item"><a class="text-body" href="">{{ details.category }}</a></li>
+                    <li class="breadcrumb-item text-dark active" aria-current="page">{{ details.name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Details Start -->
+    <div class="container-xxl py-6">
+        <div class="container">
+            <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-5 mb-3">Details</h1>
+                <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+            </div>
+
+
+            {% if details.is_sale %}
+                      	<div class="row g-5 ">
+                    <div class="col-lg-5 col-md-12 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class=" wow fadeIn" data-wow-delay="0.1s" style="margin-bottom: -6px;">
+
+                                <img class="img-fluid w-100" src="/media/{{ details.image }}" alt="">
+
+
+                            </div>
+
+                    </div>
+
+                  <div class="col-lg-7 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+
+                      <h1>{{ details.description }}</h1><br>
+                      <span class="text-warning bi-star-fill"></span>
+                        &nbsp;&nbsp; Sale! &nbsp;&nbsp;
+                      <span class="text-warning bi-star-fill"></span>
+                      <strike><h5 class=" text-success">Ksh {{ details.price }}</h5></strike>
+                      <h5 class=" text-success">Ksh {{ details.sales_price }}</h5>
+                      <br><br>
+
+                      <button  value="{{ details.id }}" class="btn btn-primary rounded-pill py-3 px-5" id="add-cart" type="submit">Add to Cart</button>
+
+
+
+
+                </div>
+            </div>
+                      {% else %}
+                      	<div class="row g-5 ">
+                    <div class="col-lg-5 col-md-12 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class=" wow fadeIn" data-wow-delay="0.1s" style="margin-bottom: -6px;">
+
+                                <img class="img-fluid w-100" src="/media/{{ details.image }}" alt="">
+
+
+                            </div>
+
+                    </div>
+
+                  <div class="col-lg-7 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+
+                      <h1>{{ details.description }}</h1><br>
+                      <h5 class=" text-success">Ksh {{ details.price }}</h5>
+
+                      <br><br>
+
+                      <button  value="{{ details.id }}" class="btn btn-primary rounded-pill py-3 px-5" id="add-cart" type="submit">Add to Cart</button>
+
+
+
+                </div>
+            </div>
+                      {% endif %}
+        </div>
+    </div>
+
+    <br><br>
+
+    <script>
+    {#check if button is pressed#}
+    $(document).on('click', '#add-cart', function (e){
+       e.preventDefault();
+       {#ajax allows adding sth to server without refreshing page#}
+       $.ajax({
+           type: 'POST',
+           url:'{% url 'Basket:cart_add' %}',
+           data : {
+               product_id: $('#add-cart').val(),
+               csrfmiddlewaretoken:'{{ csrf_token }}',
+               action: 'post'
+
+           },
+           success: function(json){
+               {#console.log(json)#}
+               document.getElementById("cart-quantity").
+                   textContent = json.qty
+           },
+
+           error: function(xhr, errmsg, err){
+
+           }
+
+       });
+
+    })
+
+
+    </script>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block body %}
+	
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <h1 class="display-3 mb-3 animated slideInDown">Blog Grid</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a class="text-body" href="{% url 'Store:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-body" href="#">Pages</a></li>
+                    <li class="breadcrumb-item text-dark active" aria-current="page">Blog Grid</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+            {% if blogs %}
+
+
+    <!-- Blog Start -->
+    <div class="container-xxl py-6">
+        <div class="container">
+            <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h1 class="display-5 mb-3">Latest Blog</h1>
+                <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+            </div>
+
+
+
+                <div class="row g-4">
+
+
+{#                {% for blog in blogs|slice:":9" %}#}
+{##}
+{##}
+{#                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">#}
+{#                    <img class="img-fluid" src="/media/{{ blog.thumbnail }}" alt="">#}
+{#                    <div class="bg-light p-4">#}
+{#                        <a class="d-block h5 lh-base mb-4" href="{% url 'Store:blogcontent' blog.id %}">{{ blog.title }}</a>#}
+{#                        <div class="text-muted border-top pt-4">#}
+{#                            <small class="me-3"><i class="fa fa-user text-primary me-2"></i>{{ blog.author }}</small>#}
+{#                            <small class="me-3"><i class="fa fa-calendar text-primary me-2"></i>{{ blog.date }}</small>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{##}
+{#                {% endfor %}#}
+
+
+                <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <a class="btn btn-primary rounded-pill py-3 px-5" href="">Load More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            {% else %}
+
+                <h3 class="text-danger">No Blogs Posted Yet</h3>
+
+            {% endif %}
+
+
+    <!-- Blog End -->
+
+    
+    
+{% endblock %}

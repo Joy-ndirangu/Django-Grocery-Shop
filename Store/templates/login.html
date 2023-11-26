@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <title>Login</title>
+
+    <div class="container-fluid page-header mb-5 wow fadeIn d-flex justify-content-center" data-wow-delay="0.1s">
+
+<div class="row container">
+<div class="col-md-6">
+    <br><br>
+    <form action="{% url 'Store:signin' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="p-3">Login</h2>
+
+        {% for message in messages %}
+
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            {% endfor %}
+
+
+        <div class="mb-3">
+            <label  class="form-label">Username</label>
+            <input type="text" class="form-control" name="username"  placeholder="Username" required>
+        </div>
+
+        <div class="mb-3">
+            <label  class="form-label">Password</label>
+            <input type="password" class="form-control"  name="password" placeholder="Password" required>
+
+        </div>
+
+    <div class="mb-3">
+
+        <button type="submit" name="button" class="form-control text-dark btn btn-primary py-sm-3 px-sm-5" >Submit</button>
+
+
+    </div>
+
+    </form>
+
+</div>
+</div>
+    </div>
+
+
+{% endblock %}
