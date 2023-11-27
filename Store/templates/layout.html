@@ -60,7 +60,7 @@
                     </li>
 
                     <li class="nav-item {% if navbar == 'about' %}active {% endif %}">
-                        <a href="{% url 'Store:about' %}" class="nav-item nav-link active">About Us</a>
+                        <a href="{% url 'Store:about' %}" class="nav-item nav-link active">About</a>
                     </li>
 
                     <li class="nav-item {% if navbar == 'products' %}active {% endif %}">
@@ -110,10 +110,10 @@
                     </div>
 
                     <li class="nav-item {% if navbar == 'contact' %}active {% endif %}">
-                        <a href="{% url 'Store:contact' %}" class="nav-item nav-link active">Contact Us</a></a>
+                        <a href="{% url 'Store:contact' %}" class="nav-item nav-link active">Contact</a></a>
                     </li>
 
-                   {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
                          <li class="nav-item {% if navbar == 'signin' %}active {% endif %}">
                            <a href="{% url 'Store:signout' %}" class="nav-item nav-link active btn btn-primary p-2 m-3">Log Out</a></a>
                          </li>
@@ -129,6 +129,7 @@
                    {% endif %}
 
                 </div>
+
                 <div class="d-none d-lg-flex ms-2">
 
                     <form class="d-flex" role="search" method="get" action="{% url 'Store:search' %}" >
