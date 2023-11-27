@@ -91,18 +91,18 @@
             </div>
             <div class="row g-4">
 
-{#                {% for f in hfeature|slice:":3" %}#}
-{##}
-{#                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">#}
-{#                     <div class="bg-white text-center h-100 p-4 p-xl-5">#}
-{#                        <img class="img-fluid mb-4" src="/media/{{ f.image }}" alt="">#}
-{#                        <h4 class="mb-3">{{ f.title }}</h4>#}
-{#                        <p class="mb-4">{{ f.description|slice:":70" }} ...</p>#}
-{#                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="{% url 'Store:featuredetails' f.id %}">Read More</a>#}
-{#                     </div>#}
-{#                    </div>#}
-{##}
-{#                {% endfor %}#}
+                {% for f in hfeature|slice:":3" %}
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                     <div class="bg-white text-center h-100 p-4 p-xl-5">
+                        <img class="img-fluid mb-4" src="/media/{{ f.image }}" alt="">
+                        <h4 class="mb-3">{{ f.title }}</h4>
+                        <p class="mb-4">{{ f.description|slice:":70" }} ...</p>
+                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="{% url 'Store:featuredetails' f.id %}">Read More</a>
+                     </div>
+                    </div>
+
+                {% endfor %}
 
 
         </div>
@@ -119,19 +119,6 @@
                         <h1 class="display-5 mb-3">Our Products</h1>
                         <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
                     </div>
-                </div>
-                <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
-                    <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
-                        <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill" href="#tab-1">Vegetable</a>
-                        </li>
-                        <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-2">Fruits </a>
-                        </li>
-                        <li class="nav-item me-0">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-3">Fresh</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
             <div class="tab-content">
@@ -231,21 +218,21 @@
             </div>
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.3s">
 
-{#                {% for r in reviews %}#}
-{##}
-{#                      <div class="testimonial-item position-relative bg-white p-5 mt-4">#}
-{#                    <i class="fa fa-quote-left fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>#}
-{#                    <p class="mb-4">{{ r.review }}</p>#}
-{#                    <div class="d-flex align-items-center">#}
-{#                        <img class="flex-shrink-0 rounded-circle" src="/media/{{ r.image }}" alt="">#}
-{#                        <div class="ms-3">#}
-{#                            <h5 class="mb-1">{{ r.client_name }}</h5>#}
-{#                            <span>{{ r.proffession }}</span>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{#                {% endfor %}#}
+                {% for f in feedback|slice:":4" %}
+
+                      <div class="testimonial-item position-relative bg-white p-5 mt-4">
+                    <i class="fa fa-quote-left fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <p class="mb-4">{{ f.review }}</p>
+                    <div class="d-flex align-items-center">
+                        <img class="flex-shrink-0 rounded-circle" src="/media/{{ f.image }}" alt="">
+                        <div class="ms-3">
+                            <h5 class="mb-1">{{ f.client_name }}</h5>
+                            <span>{{ f.proffession }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -263,26 +250,26 @@
 
 <h1>Blogs</h1>
 
-{#                {% for blog in hblogs|slice:":3" %}#}
-{##}
-{##}
-{#                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">#}
-{#                    <img class="img-fluid" src="/media/{{ blog.thumbnail }}" alt="">#}
-{#                    <div class="bg-light p-4">#}
-{#                        <a class="d-block h5 lh-base mb-4" href="{% url 'Store:blogcontent' blog.id  %}">{{ blog.title }}</a>#}
-{#                        <div class="text-muted border-top pt-4">#}
-{#                            <small class="me-3"><i class="fa fa-user text-primary me-2"></i>{{ blog.author }}</small>#}
-{#                            <small class="me-3"><i class="fa fa-calendar text-primary me-2"></i>{{ blog.date }}</small>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{##}
-{#                {% endfor %}#}
+                {% for blog in article|slice:":3" %}
+
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <img class="img-fluid" src="/media/{{ blog.thumbnail }}" alt="">
+                    <div class="bg-light p-4">
+                        <a class="d-block h5 lh-base mb-4" href="{% url 'Store:blogcontent' blog.id %}">{{ blog.title }}</a>
+                        <div class="text-muted border-top pt-4">
+                            <small class="me-3"><i class="fa fa-user text-primary me-2"></i>{{ blog.author }}</small>
+                            <small class="me-3"><i class="fa fa-calendar text-primary me-2"></i>{{ blog.date }}</small>
+                        </div>
+                    </div>
+                </div>
+
+
+                {% endfor %}
 
 
                 <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <a class="btn btn-primary rounded-pill py-3 px-5" href="">View More Blogs</a>
+                    <a class="btn btn-primary rounded-pill py-3 px-5" href="{% url 'Store:blogs' %}">View More Blogs</a>
                 </div>
             </div>
 

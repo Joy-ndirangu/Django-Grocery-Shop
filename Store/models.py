@@ -88,3 +88,16 @@ class Visitors(models.Model):
 
         def __str__(self):
             return self.name
+
+# model fro saving contact us messages to db
+
+class AddMessage(models.Model):
+    name = models.CharField(max_length=100, blank=False, null=False)
+    email = models.EmailField(blank=False)
+    subject = models.EmailField(blank=False)
+    message = models.TextField( blank=False, null=True, max_length=500)
+
+
+    def __str__(self):
+        return self.name
+

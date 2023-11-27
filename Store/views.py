@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from  .models import Product, Category
+from  .models import Product, Category, Testimonial, Blog, Features, AddMessage
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
@@ -13,14 +13,19 @@ from .forms import RegisterUserForm
 
 def home(request):
     items = Product.objects.all()
-    return render(request,"index.html",{'navbar':'home', 'items':items})
+    feedback = Testimonial.objects.all()
+    article = Blog.objects.all()
+    hfeature = Features.objects.all()
+    return render(request,"index.html",{'navbar':'home', 'items':items, 'feedback': feedback, 'article': article, 'hfeature': hfeature})
 
 def about(request):
-    return  render(request, "about.html", {'navbar':'about'})
+    feature_data = Features.objects.all()
+    return  render(request, "about.html", {'navbar':'about','feature_data': feature_data})
 
 def products(request):
     product = Product.objects.all()
-    return render(request, "product.html", {'navbar':'products', 'product':product})
+    reviews = Testimonial.objects.all()
+    return render(request, "product.html", {'navbar':'products', 'product':product, 'reviews':reviews})
 
 def viewdetails(request, id):
     details = Product.objects.get(id=id)
@@ -41,13 +46,30 @@ def category(request, name):
 
 
 def blogs(request):
-    return render(request, "blog.html", {'navbar':'blogs'})
+    blog = Blog.objects.all()
+    return render(request, "blog.html", {'navbar':'blogs', 'blog':blog})
+
+
+# to view contents of a particular blog create a blogcpntent page
+def blogcontent(request, id):
+    blg = Blog.objects.get(id=id)
+    return render(request, "blogcontent.html",{'navbar':'blogs','blg':blg})
+
 
 def features(request):
-    return render(request, "feature.html", {'navbar':'features'})
+    feature = Features.objects.all()
+    return render(request, "feature.html", {'navbar':'features', 'feature': feature})
+
+
+# to view contents of a particular feature create a featuredetail page
+def featuredetails(request, id):
+    read_more = Features.objects.get(id=id)
+    return render(request, "featuredetail.html", {'navbar':'feature', 'read_more':read_more})
+
 
 def testimonials(request):
-    return render(request, "testimonial.html", {'navbar':'testimonial'})
+    testimonies = Testimonial.objects.all()
+    return render(request, "testimonial.html", {'navbar':'testimonial','testimonies':testimonies})
 
 def contact(request):
     return render(request, "contact.html", {'navbar':'contact'})
@@ -99,3 +121,43 @@ def register_user(request):
 
     else:
         return render(request, "signup.html", {'form':form})
+
+
+# Inserting contact us msg to db
+
+def sendmessage(request):
+    # verifying if form method is post
+    if request.method == "POST":
+        # if yes gets the user input  and stores them  in a variable ith the same exact name as the input
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        subject = request.POST.get("subject")
+        message= request.POST.get("msg")
+
+
+        # creating a variable that matches the columns in the model Students with the variable names we have above
+        query = AddMessage(name=name, email=email, subject=subject, message=message)
+        # after comparing save everything in query using save()method
+        query.save()
+
+        # for alerts. Message below shows if saved successfully
+
+        messages.success(request, "Message sent  successfully")
+
+        return redirect("/contact")
+    return redirect("/contact")
+    # make sure to call this function in the form action attribute.
+    # pass the insertdata path to it
+
+# Searching a site
+
+def search(request):
+    if request.method == 'GET':
+        query = request.GET.get('query')
+
+        if query:
+            prod = Product.objects.filter(name__icontains=query)
+            feat = Features.objects.filter(title__icontains=query)
+            article = Blog.objects.filter(title__icontains=query)
+            return render(request, "search.html", {'prod':prod, 'feat':feat, 'article':article})
+

@@ -130,23 +130,22 @@
                 <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
             </div>
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <h1>reviews</h1>
 
-{#                {% for r in review %}#}
-{##}
-{#                      <div class="testimonial-item position-relative bg-white p-5 mt-4">#}
-{#                    <i class="fa fa-quote-left fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>#}
-{#                    <p class="mb-4">{{ r.review }}</p>#}
-{#                    <div class="d-flex align-items-center">#}
-{#                        <img class="flex-shrink-0 rounded-circle" src="/media/{{ r.image }}" alt="">#}
-{#                        <div class="ms-3">#}
-{#                            <h5 class="mb-1">{{ r.client_name }}</h5>#}
-{#                            <span>{{ r.proffession }}</span>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{#                {% endfor %}#}
+                {% for r in reviews %}
+
+                      <div class="testimonial-item position-relative bg-white p-5 mt-4">
+                    <i class="fa fa-quote-left fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5"></i>
+                    <p class="mb-4">{{ r.review }}</p>
+                    <div class="d-flex align-items-center">
+                        <img class="flex-shrink-0 rounded-circle" src="/media/{{ r.image }}" alt="">
+                        <div class="ms-3">
+                            <h5 class="mb-1">{{ r.client_name }}</h5>
+                            <span>{{ r.proffession }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
 
 
 

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <h1 class="display-3 mb-3 animated slideInDown">{{ read_more.title }}</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a class="text-body" href="{% url 'Store:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-body" href="{% url 'Store:features' %}">Features</a></li>
+                    <li class="breadcrumb-item text-dark active" aria-current="page">{{ read_more.title }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+
+		<div class="container p-5 m-3">
+            <h2>{{read_more.image}}</h2><br>
+		    <h5>{{read_more.title}}</h5><br><br>
+		    <p>{{read_more.description}}</p>
+        </div>
+
+
+{% endblock %}

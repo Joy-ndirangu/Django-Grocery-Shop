@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <br><br>
+
+            <h2 class="p-3">Search Results</h2>
+
+            {% if prod or feat or article %}
+
+                <div class="row g-4">
+                {% for p in prod %}
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp " data-wow-delay="0.3s" >
+
+                        <a href="{% url 'Store:viewdetails' p.id %}">
+                            <div class="card">
+                        <img src="http://127.0.0.1:8000/media/{{ p.image }}" class="card-img-top " alt="{{ p.name }} " >
+                        <div class="card-body">
+                            <h5 class="card-text"> {{ p.description }}</h5>
+                            <p class="card-text"> {{ p.Price }}</p>
+
+
+                        </div>
+                    </div>
+
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+
+
+                {% for feat in feat %}
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                                <a href="{% url 'Store:featuredetails' feat.id %}">
+                                    <div class="bg-white text-center h-100 p-4 p-xl-5">
+                        <img class="img-fluid mb-4" src="/media/{{ feat.image }}" alt="">
+                        <h4 class="mb-3">{{ feat.title }}</h4>
+                        <p class="mb-4">{{ feat.description|slice:":30"}}...</p>
+                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="{% url 'Store:featuredetails' feat.id  %}">Read More</a>
+                     </div>
+                                </a>
+                    </div>
+
+
+                {% endfor %}
+
+                {% for article in article %}
+
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <a href="{% url 'Store:blogcontent' article.id %}">
+                            <img class="img-fluid" src="/media/{{ blog.thumbnail }}" alt="">
+                    <div class="bg-light p-4">
+                        <a class="d-block h5 lh-base mb-4" href="{% url 'Store:blogcontent' article.id  %}">{{ article.title }}</a>
+                        <div class="text-muted border-top pt-4">
+                            <small class="me-3"><i class="fa fa-user text-primary me-2"></i>{{ article.author }}</small>
+                            <small class="me-3"><i class="fa fa-calendar text-primary me-2"></i>{{ article.date }}</small>
+                        </div>
+                    </div></a>
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+                </div>
+                </div>
+
+
+             {% else %}
+
+               <h3 class="text-danger">No record matching your query was found</h3>
+
+            {% endif %}
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

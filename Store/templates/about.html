@@ -73,19 +73,18 @@
             </div>
             <div class="row g-4">
 
-                <h1>Features</h1>
-{#                {% for feature in datas|slice:":3" %}#}
-{##}
-{#                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">#}
-{#                    <div class="bg-white text-center h-100 p-4 p-xl-5">#}
-{#                        <img class="img-fluid mb-4" src="/media/{{ feature.image }}" alt="">#}
-{#                        <h4 class="mb-3">{{ feature.title }}</h4>#}
-{#                        <p class="mb-4">{{ feature.description|slice:"70"}}...</p>#}
-{#                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="{% url 'Store:featuredetails' feature.id %}">Read More</a>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{#                {% endfor %}#}
+                {% for feature in feature_data|slice:":3" %}
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="bg-white text-center h-100 p-4 p-xl-5">
+                        <img class="img-fluid mb-4" src="/media/{{ feature.image }}" alt="">
+                        <h4 class="mb-3">{{ feature.title }}</h4>
+                        <p class="mb-4">{{ feature.description|slice:"70"}}...</p>
+                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="{% url 'Store:featuredetails' feature.id %}">Read More</a>
+                    </div>
+                </div>
+
+                {% endfor %}
 
             </div>
         </div>

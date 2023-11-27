@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <h1 class="display-3 mb-3 animated slideInDown">Blog Grid</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a class="text-body" href="{% url 'Store:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-body" href="{% url 'Store:blogs' %}">Blogs</a></li>
+                    <li class="breadcrumb-item text-dark active" aria-current="page">Blog Grid</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+{#blog is the variable used in views.py  to obtain the objects of Blog model#}
+		<div class="container p-5">
+            <h1>{{ blg.title }}</h1><br>
+            <h5>{{ blg.author }}</h5>
+            <h5 class="text-success">{{ blg.date }}</h5><br><br>
+            <p>{{ blg.content }}</p>
+        </div>
+
+{% endblock %}
