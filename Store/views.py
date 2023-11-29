@@ -1,5 +1,8 @@
+import json
+
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from  .models import Product, Category, Testimonial, Blog, Features, AddMessage
+from  .models import Product, Category, Testimonial, Blog, Features, AddMessage, Order, Customer, orderItem, shippingAddress
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
@@ -161,3 +164,50 @@ def search(request):
             article = Blog.objects.filter(title__icontains=query)
             return render(request, "search.html", {'prod':prod, 'feat':feat, 'article':article})
 
+
+# for cart
+def cart(request):
+    # authenticated user
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        # getting the order and creating it if it doesn't exist using .get_or_create()'
+        order,created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+
+    context = {'items':items, 'order':order}
+    return render(request, 'cart.html', context)
+
+def checkout(request):
+    # authenticated user
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        # getting the order and creating it if it doesn't exist using .get_or_create()'
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+
+    context = {'items': items, 'order': order}
+    return render(request, 'checkout.html',context)
+
+
+def updateItem(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+    action = data['action']
+    print('action:' , action)
+    print('Product:', productId)
+
+    # creating customer
+    customer = request.user.customer
+    product = Product.objects.get(id=productId)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+    orderitem, created = orderItem.objects.get_or_create(order=order, product=product)
+    return JsonResponse("Item was added", safe= False)

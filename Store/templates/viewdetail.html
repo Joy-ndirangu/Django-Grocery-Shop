@@ -54,9 +54,19 @@
                       <span class="text-warning bi-star-fill"></span>
                       <strike><h5 class=" text-success">Ksh {{ details.price }}</h5></strike>
                       <h5 class=" text-success">Ksh {{ details.sales_price }}</h5>
-                      <br><br>
+                      <br>
+                      <div class="row mt-3">
+                      <div class="col_ms_3">
+                          <label for="Quantity">Quantity</label>
+                          <div class="input-group text-center mb-3" style="width: 130px;">
+                              <button class="input-group-text" id="decreament-btn">-</button>
+                              <input type="text" class="form-control text-center" id="#qty-input" name="quantity" value="1">
+                              <button class="input-group-text" id="increament-btn">+</button>
+                          </div>
+                      </div>
+                      </div><br>
 
-                      <button  value="{{ details.id }}" class="btn btn-primary rounded-pill py-3 px-5" id="add-cart" type="submit">Add to Cart</button>
+                      <button data-product="{{ details.id }}" data-action="add"  class="btn btn-primary rounded-pill py-3 px-5 update-cart"  type="submit">Add to Cart</button>
 
 
 
@@ -79,10 +89,18 @@
 
                       <h1>{{ details.description }}</h1><br>
                       <h5 class=" text-success">Ksh {{ details.price }}</h5>
-
-                      <br><br>
-
-                      <button  value="{{ details.id }}" class="btn btn-primary rounded-pill py-3 px-5" id="add-cart" type="submit">Add to Cart</button>
+                      <br>
+                      <div class="row mt-3">
+                      <div class="col_ms_3">
+                          <label for="Quantity">Quantity</label>
+                          <div class="input-group text-center mb-3" style="width: 130px;">
+                              <button class="input-group-text" id="decreament-btn">-</button>
+                              <input type="text" class="form-control text-center" id="#qty-input" name="quantity" value="1">
+                              <button class="input-group-text" id="increament-btn">+</button>
+                          </div>
+                      </div>
+                      </div>
+                      <button data-product="{{ details.id }}" data-action="add"  class="btn btn-primary rounded-pill py-3 px-5 update-cart"  type="submit">Add to Cart</button>
 
 
 
@@ -94,36 +112,38 @@
 
     <br><br>
 
-    <script>
-    {#check if button is pressed#}
-    $(document).on('click', '#add-cart', function (e){
-       e.preventDefault();
+{#    <script>#}
+    {#check if add to cart button is pressed#}
+{#    $(document).on('click', '#add-cart', function (e){#}
+{#       e.preventDefault();#}
        {#ajax allows adding sth to server without refreshing page#}
-       $.ajax({
-           type: 'POST',
-           url:'{% url 'Basket:cart_add' %}',
-           data : {
-               product_id: $('#add-cart').val(),
-               csrfmiddlewaretoken:'{{ csrf_token }}',
-               action: 'post'
-
-           },
-           success: function(json){
+{#       $.ajax({#}
+{#           type: 'POST',#}
+{#           url:'{% url 'Basket:cart_add' %}',#}
+{#           data : {#}
+{#               product_id: $('#add-cart').val(),#}
+{#               csrfmiddlewaretoken:'{{ csrf_token }}',#}
+{#               action: 'post'#}
+{##}
+{#           },#}
+{#           success: function(json){#}
                {#console.log(json)#}
-               document.getElementById("cart-quantity").
-                   textContent = json.qty
-           },
-
-           error: function(xhr, errmsg, err){
-
-           }
-
-       });
-
-    })
-
-
-    </script>
+{#               document.getElementById("cart-quantity").#}
+{#                   textContent = json.qty#}
+{#           },#}
+{##}
+{#           error: function(xhr, errmsg, err){#}
+{##}
+{#           }#}
+{##}
+{#       });#}
+{##}
+{#    })#}
+{##}
+    {#for the increament and decreament of quantity button#}
+{##}
+{##}
+{#    </script>#}
 
 
 

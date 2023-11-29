@@ -30,8 +30,30 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+{#    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>#}
 
+{#    setting type of user to know if authenticated or anonymous#}
+    <script type="text/javascript">
+        var user = '{{ request.user }}'
+
+        function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+           var cookies = document.cookie.split(';');
+           for (let i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getToken('csrftoken');
+
+    </script>
 </head>
 
 <body>
@@ -48,7 +70,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="{% url 'Store:home' %}" class="navbar-brand ms-4 ms-lg-0">
-                <h1 class="fw-bold text-primary m-0">F<span class="text-secondary">oo</span>dy</h1>
+                <h1 class="fw-bold text-primary m-0">M<span class="text-secondary">aa</span>the</h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -139,10 +161,10 @@
 {#                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">#}
 {#                        <small class="fa fa-user text-body"></small>#}
 {#                    </a>#}
-                    <a class=" btn btn-outline-dark m-2 " href="{% url 'Basket:cart_summary' %}">
+                    <a class=" btn btn-outline-dark m-2 " href="{% url 'Store:cart' %}">
                         <i class="bi-cart-fill me-1"></i>
                             Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-quantity">{{ cart|length }}</span>
+{#                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-quantity">{{ cart|length }}</span>#}
                     </a>
                 </div>
             </div>
@@ -220,6 +242,8 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+
 </body>
 
 </html>

@@ -18,5 +18,8 @@ urlpatterns = [
     path("featuredetail/<int:id>", views.featuredetails, name="featuredetails"),
     path('sendmessage/', views.sendmessage, name="sendmessage"),
     path('search/', views.search, name="search"),
+    path('cart/', views.cart, name="cart"),
+    path('checkout/', views.checkout, name="checkout"),
+    path('update_item/', views.updateItem, name="update_item"),
 
 ]
