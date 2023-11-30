@@ -8,7 +8,7 @@
     
     
 
-
+{{ request.user }}
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
@@ -40,6 +40,7 @@
                     <div class="row g-4">
 
                         {% for p in product %}
+                            {{ request.user }}
 
                             {% if p.is_sale %}
 

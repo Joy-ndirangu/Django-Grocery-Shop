@@ -70,7 +70,7 @@ var csrftoken = getToken('csrftoken');
 
         <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="{% url 'Store:home' %}" class="navbar-brand ms-4 ms-lg-0">
-                <h1 class="fw-bold text-primary m-0">M<span class="text-secondary">aa</span>the</h1>
+                <h1 class="fw-bold text-primary m-0">Ki<span class="text-secondary">ba</span>nda</h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -164,7 +164,7 @@ var csrftoken = getToken('csrftoken');
                     <a class=" btn btn-outline-dark m-2 " href="{% url 'Store:cart' %}">
                         <i class="bi-cart-fill me-1"></i>
                             Cart
-{#                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-quantity">{{ cart|length }}</span>#}
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-quantity">{{ cartItems }}</span>
                     </a>
                 </div>
             </div>

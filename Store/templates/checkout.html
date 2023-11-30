@@ -3,7 +3,11 @@
 {% block body %}
 
 
-
+    <style>
+    .hidden{
+        display: none;
+    }
+    </style>
 <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
@@ -24,7 +28,7 @@
        <div class="col-lg-6">
            <div class="p-3 p-lg-5 border bg-white">
                <div id="form-wrapper">
-                   <form action="">
+                   <form id="form" action="">
                        {% csrf_token %}
                        <div class=" row p-3 mb-3" id="user-info">
                           <div class="col-md-6">
@@ -53,20 +57,24 @@
                                         <input type="text" class="form-control"  name="town" placeholder="Town">
                                       </div>
                                      <div class="col-md-6">
-                                        <input type="text" class="form-control"  name="ship-phone" placeholder="Phone Number" required>
+                                        <input type="text" class="form-control"  name="ship_phone" placeholder="Phone Number" required>
                                       </div>
                                </div>
                        </div>
                         <hr>
-                        <div class="row p-3 mb-3">
-                          <input id="form-button" type="submit" class="btn btn-primary" value="Continue">
+                        <div class="row p-3  mb-3">
+                          <input id="form-button" type="submit" class="btn btn-primary form-btn" value="Continue">
                         </div>
 
                    </form>
                </div>
-
-
            </div>
+
+           <div class="p-3 p-lg-5 mt-3 border border-black hidden" id="payment-info">
+                   <small>Payment Option</small>
+                   <button class="float-end btn btn-primary" id="make-payment">Lipa na Mpesa</button>
+               </div>
+
        </div>
        <div class="col-lg-6">
            <div class="p-3 p-lg-5 border bg-white">
@@ -84,7 +92,7 @@
                           <td><img class="img-fluid" src="http://127.0.0.1:8000/media/{{ item.product.image }}" width="50" height="30" alt=""> </td>
                           <td>{{ item.product.name }}</td>
                           <td>Ksh {{ item.product.price }}</td>
-                          <td>{{ item.quantity }}</td>
+                          <td> {{ item.quantity }}</td>
                       </tr>
                    </table>
                </div>
@@ -97,7 +105,77 @@
 
    </div>
    </div>
+    <script>
+        var shipping = '{{ order.shipping }}'
+        var total = '{{ order.get_cart_total }}'
 
+        if (user !== 'AnonymousUser'){
+            document.getElementById('user-info').innerHTML = ''
+        }
+
+        var form = document.getElementById('form')
+        form.addEventListener('submit', function (e) {
+            e.preventDefault()
+            console.log('form submitted')
+            document.getElementById('form-button').classList.add('hidden')
+            document.getElementById('payment-info').classList.remove('hidden')
+
+        })
+
+        document.getElementById('make-payment').addEventListener('click', function (e){
+            submitFormData()
+        })
+
+
+        function  submitFormData(){
+            console.log('payment button clicked')
+
+            var userFormData = {
+                'shipname': null,
+                'shipemail': null,
+                'total': total
+            }
+            var shippingInfo = {
+                'address': null,
+                'county': null,
+                'town': null,
+                'ship_phone': null
+
+            }
+            if (shipping !== 'False'){
+                shippingInfo.address = form.address.value
+                shippingInfo.county = form.county.value
+                shippingInfo.town = form.town.value
+                shippingInfo.ship_phone = form.ship_phone.value
+
+            }
+
+            if (user === 'AnonymousUser'){
+                userFormData.shipname= form.shipname.value
+                userFormData.shipemail = form.shipemail.value
+            }
+
+            {#for the post data sending the process order data#}
+
+            var url = '/process_order/'
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body:JSON.stringify({'form': userFormData, 'shipping': shippingInfo}),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Success:', data);
+                    alert('Proceed to pay');
+                    window.location.href = '{% url 'stk:stk' %}'
+                })
+
+        }
+
+    </script>
 
 
 {% endblock %}
