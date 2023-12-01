@@ -27,7 +27,7 @@ def about(request):
 
 def products(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = Customer.objects.get(user=request.user)
         # getting the order and creating it if it doesn't exist using .get_or_create()'
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
@@ -107,6 +107,7 @@ def login_user(request):
         if user is not None:
             login(request,user)
             messages.success(request, "Log in successful")
+            customer, created = Customer.objects.get_or_create(user=request.user)
             return redirect('Store:home')
 
         else:
@@ -132,6 +133,7 @@ def register_user(request):
 
             # Logging in user
             user = authenticate(username=username, password=password)
+            customer, created = Customer.objects.get_or_create(user=user)
             login(request, user)
 
             messages.success(request, "Registration successful")
