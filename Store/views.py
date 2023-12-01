@@ -191,7 +191,8 @@ def search(request):
 def cart(request):
     # authenticated user
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = Customer.objects.get(user=request.user)
+
         # getting the order and creating it if it doesn't exist using .get_or_create()'
         order,created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
